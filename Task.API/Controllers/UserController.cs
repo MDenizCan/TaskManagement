@@ -8,7 +8,7 @@ namespace Task.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        //get users
+        //get all users
         [HttpGet]
 
         //get users by id
@@ -17,9 +17,20 @@ namespace Task.API.Controllers
         //get ALL THE USERS THAT'S ASSIGNED TO A PROJECT
         [HttpGet("{id}")]
 
-        //post users
+        //get ALL THE USERS THAT'S ASSIGNED TO A TASK
+        [HttpGet("{id}")]
+
+        //create users
         [HttpPost]
- 
+
+        //add users to projects
+        [HttpPost("{id}")]
+
+        //add users to tasks
+        [HttpPost("{id}")]
+        //if user doesnt exist in project, add user to project and assign task to user
+        //if user exist in project, assign task to user
+
         //update users by id
         [HttpPut("{id}")]
 

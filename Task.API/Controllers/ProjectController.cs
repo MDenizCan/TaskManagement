@@ -2,26 +2,26 @@
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Task.API.Controllers
+namespace Task.API.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class ProjectController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProjectController : ControllerBase
-    {
-        // GET: api/<ValuesController>
-        [HttpGet]
+    //get all projects
+    [HttpGet]
 
-        // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
+    //get project by id
+    [HttpGet("{id}")]
 
-        // POST api/<ValuesController>
-        [HttpPost]
+    //post project
+    [HttpPost]
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
+    //update project by id
+    [HttpPut("{id}")]
 
-        // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
+    //delete project by id
+    [HttpDelete("{id}")]
 
-    }
+
 }
