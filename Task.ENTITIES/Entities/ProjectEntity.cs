@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task.ENTITIES.Base;
 
-namespace Task.ENTITIES.Project;
+namespace Task.ENTITIES.Entities;
 
-internal class ProjectEntity
+public class ProjectEntity : BaseEntity
 {
     public string ProjectName { get; set; }
     public string ProjectVersion { get; set; }
