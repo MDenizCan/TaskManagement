@@ -2,28 +2,51 @@
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Task.API.Controllers
+namespace Task.API.Controllers;
+/*
+[Route("api/[controller]")]
+[ApiController]
+public class TaskController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TaskController : ControllerBase
-    {
-        //get all tasks
-        [HttpGet]
+    [/tasks]
+    //get all tasks
+    [HttpGet]
+    
+    [/projects/tasks]
+    //get ALL TASKS BY PROJECT ID 
+    [HttpGet("{id}")]
+    
+    [/tasks/{taskid}]
+    //get TASK BY TASK ID
+    [HttpGet("{id}")]
 
-        //get ALL TASKS BY PROJECT ID 
-        [HttpGet("{id}")]
+    [/tasks/{TaskId}/users]
+    //get ALL THE USERS THAT'S ASSIGNED TO A TASK
+    [HttpGet("{TaskId}")]
 
-        //get TASK BY TASK ID
-        [HttpGet("{id}")]
+    //nested routes
+    [/projects/{projectId}/tasks]
+    //post tasks by project id
+    [HttpPost("{id}")]
 
-        //post tasks
-        [HttpPost]
+    [/tasks/{taskid}/assign] userid bodyden gelecek
+    //add users to tasks
+    [HttpPost("{UserId and TaskId}")]
+    //if user doesnt exist in project, add user to project and assign task to user
+    //if user exist in project, assign task to user
+    //user taskin projesinde yoksa atanamaz
+    //[autheticate] asamasinda eger user projedeyse mid level yapabilir, eger degilse senior yapabilir
 
-        //update tasks by id
-        [HttpPut("{id}")]
+    [/tasks/{taskid}]
+    //update tasks by id
+    [HttpPut("{id}")]
 
-        //delete tasks by id
-        [HttpDelete("{id}")]
-    }
+    [/tasks/{taskid}/status]
+    //update task status by id,[authenticate]mid level yapabilir, senior yapabilir
+    [HttpPut("{id}")]
+
+    [/tasks/{id}]
+    //delete tasks by id, [authenticate]mid level yapabilir, senior yapabilir
+    [HttpDelete("{id}")]
 }
+*/

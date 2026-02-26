@@ -1,7 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using System;
-using Task.ENTITIES;
+using Task.INFRASTRUCTURE;
 
 namespace Task.API
 {
@@ -13,7 +13,7 @@ namespace Task.API
 
             // Add services to the container.
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite(""));
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

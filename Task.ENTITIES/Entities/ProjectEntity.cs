@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task.ENTITIES.Base;
+using Task.ENTITIES.Common;
 
 namespace Task.ENTITIES.Entities;
 

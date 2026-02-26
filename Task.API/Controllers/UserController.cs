@@ -2,40 +2,31 @@
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Task.API.Controllers
+namespace Task.API.Controllers;
+/*
+[Route("api/[controller]")]
+[ApiController]
+public class UserController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
-    {
-        //get all users
-        [HttpGet]
+    [/users]
+    //get all users
+    [HttpGet]
 
-        //get users by id
-        [HttpGet("{id}")]
+    [/users/{userid}]
+    //get users by id
+    [HttpGet("{UserId}")]
 
-        //get ALL THE USERS THAT'S ASSIGNED TO A PROJECT
-        [HttpGet("{id}")]
+    [/users]
+    //create users, [authenticate]bunu senior degistirebilicek
+    [HttpPost]
 
-        //get ALL THE USERS THAT'S ASSIGNED TO A TASK
-        [HttpGet("{id}")]
+    [/users/{userid}]
+    //update users by id, [authenticate]bunu senior degistirebilicek
+    [HttpPut("{id}")]
 
-        //create users
-        [HttpPost]
+    [/users/{userid}]
+    //delete users by id, [authenticate]bunu senior degistirebilicek
+    [HttpDelete("{id}")]
 
-        //add users to projects
-        [HttpPost("{id}")]
-
-        //add users to tasks
-        [HttpPost("{id}")]
-        //if user doesnt exist in project, add user to project and assign task to user
-        //if user exist in project, assign task to user
-
-        //update users by id
-        [HttpPut("{id}")]
-
-        //delete users by id
-        [HttpDelete("{id}")]
-
-    }
 }
+*/
