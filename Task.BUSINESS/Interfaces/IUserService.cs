@@ -8,4 +8,14 @@ namespace Task.BLL.Interfaces;
 
 public interface IUserService
 {
+    //dto dosyalari eklenecek
+    //GetAllAsync()
+
+    //GetByIdAsync(userId)
+
+    //CreateAsync(CreateUserDto)
+
+    //UpdateAsync(userId, UpdateUserDto)
+
+    //DeleteAsync(userId)
 }

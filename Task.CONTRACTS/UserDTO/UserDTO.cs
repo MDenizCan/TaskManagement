@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task.MODELS.UserDTO;
 
-internal class UserDTO
+public class UserDTO
 {
     public string UserName { get; set; }
     public string UserRole { get; set; }
