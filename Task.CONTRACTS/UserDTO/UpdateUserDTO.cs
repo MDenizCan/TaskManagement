@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task.MODELS.UserDTO;
 
-public class UserDTO
+public class UpdateUserDTO
 {
     public string Name { get; set; }
     public string Surname { get; set; }

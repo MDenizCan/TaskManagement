@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Task.MODELS.ProjectDTO;
 using Task.MODELS.UserDTO;
+using Task.MODELS.UpdateProjectDTO;
+using Task.MODELS.CreateProjectDTO;
+using Task.MODELS.ChangeProjectStatusDTO;
+
 
 namespace Task.BLL.Interfaces;
 
@@ -24,16 +28,17 @@ public interface IProjectService
     Task<List<UserDTO>> GetUsersAsync(int projectId);
 
     //CreateAsync(CreateProjectDto)
-    Task<ProjectDTO> CreateAsync(CreateProjectDto createProjectDto);
+    Task<CreateProjectDTO> CreateAsync(CreateProjectDTO createProjectDto);
 
     //UpdateAsync(projectId, UpdateProjectDto)
-    Task<ProjectDTO> UpdateAsync(int projectId, UpdateProjectDto updateProjectDto);
-
-    //ChangeStatusAsync(projectId, ProjectStatus)
+    Task<UpdateProjectDTO> UpdateAsync(int projectId, UpdateProjectDTO updateProjectDto);
 
     //AddUserAsync(projectId, userId)
+    Task<UserDTO> AddUserAsync(int projectId, int userId);
 
     //RemoveUserAsync(projectId, userId)
+    Task<UserDTO> RemoveUserAsync(int projectId, int userId);
 
     //DeleteAsync(projectId)
+    Task<ProjectDTO> DeleteAsync(int projectId);
 }

@@ -7,10 +7,16 @@ using Task.ENTITIES.Common;
 
 namespace Task.ENTITIES.Entities;
 
+public enum TaskStatus
+{
+    NotStarted,
+    InProgress,
+    Completed
+}
 public class TaskEntity : BaseEntity
 {
-    public string TaskName { get; set; }    
-    public string TaskType { get; set; }
-    public bool IsTaskCompleted { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public TaskStatus Status { get; set; }
 }
 

@@ -8,7 +8,7 @@ namespace Task.MODELS.TaskDTO;
 
 public class TaskDTO
 {
-    public string TaskName { get; set; }
-    public string TaskType { get; set; }
-    public bool IsTaskCompleted { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public TaskStatus Status { get; set; }
 }

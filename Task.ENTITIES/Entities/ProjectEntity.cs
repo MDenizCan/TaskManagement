@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 using Task.ENTITIES.Common;
 
 namespace Task.ENTITIES.Entities;
+public enum ProjectStatus
+{
+    NotStarted,
+    InProgress,
+    Completed
+}
 
 public class ProjectEntity : BaseEntity
 {
-    public string ProjectName { get; set; }
-    public string ProjectVersion { get; set; }
-    public bool isProjectCompleted { get; set; } = false;
-    public string ProjectDescription { get; set; }
+    public string Name { get; set; }
+    public ProjectStatus Status { get; set; }
+    public string Description { get; set; }
 
 }
 

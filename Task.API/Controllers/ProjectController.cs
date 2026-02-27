@@ -32,10 +32,6 @@ public class ProjectController : ControllerBase
     //update project by id, bunu senior degistirebilicek
     [HttpPut("{id}")]
     
-    [/projects/{projectid}/status]
-    //update project status by id, bunu senior degistirebilicek
-    [HttpPut("{id}")]
-
     [/projects/{projectid}]
     //delete project by id, bunu senior degistirebilicek
     [HttpDelete("{id}")]
