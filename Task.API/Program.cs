@@ -1,7 +1,10 @@
 
 using Microsoft.EntityFrameworkCore;
 using System;
+using TaskManagement.BLL.Interfaces;
+using TaskManagement.BLL.Services;
 using TaskManagement.INFRASTRUCTURE;
+using TaskManagement.INFRASTRUCTURE.Repositories;
 
 namespace TaskManagement.API
 {
@@ -14,6 +17,11 @@ namespace TaskManagement.API
             // Add services to the container.
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<ITaskService, TaskService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IProjectService, ProjectService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

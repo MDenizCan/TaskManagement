@@ -15,6 +15,7 @@ public class ProjectService : IProjectService
 {
     //getAllProjects
     //repodan projectleri çek
+    //
     public Task<List<ProjectDTO>> GetAllAsync()
     {
         throw new NotImplementedException();

@@ -15,7 +15,6 @@ public interface IGenericRepository<T> where T : BaseEntity
     Task<List<T>> GetAllAsync();
     Task<T> GetByIdAsync(int id);
     Task<T> CreateAsync(T entity);
-    Task<T> UpdateAsync(int id, T entity);
     void Update(T entity);
     void Remove(T entity);
     Task SaveChangesAsync();
