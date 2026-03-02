@@ -19,10 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Task.API\Task.API.csproj" />
-    <ProjectReference Include="..\Task.CONTRACTS\Task.MODELS.csproj" />
-    <ProjectReference Include="..\Task.ENTITIES\Task.ENTITIES.csproj" />
-    <ProjectReference Include="..\Task.INFRASTRUCTURE\Task.INFRASTRUCTURE.csproj" />
+    <ProjectReference Include="..\Task.CONTRACTS\TaskManagement.MODELS.csproj" />
+    <ProjectReference Include="..\Task.ENTITIES\TaskManagement.ENTITIES.csproj" />
   </ItemGroup>
 
 </Project>

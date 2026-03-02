@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task.ENTITIES.Common;
+using TaskManagement.ENTITIES.Common;
 
-namespace Task.ENTITIES.Entities;
+namespace TaskManagement.ENTITIES.Entities;
 
 public class UserEntity : BaseEntity
 {

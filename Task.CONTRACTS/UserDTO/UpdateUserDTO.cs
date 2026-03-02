@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task.MODELS.UserDTO;
+namespace TaskManagement.MODELS.UserDTO;
 
 public class UpdateUserDTO
 {

@@ -1,9 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
 using System;
-using Task.INFRASTRUCTURE;
+using TaskManagement.INFRASTRUCTURE;
 
-namespace Task.API
+namespace TaskManagement.API
 {
     public class Program
     {

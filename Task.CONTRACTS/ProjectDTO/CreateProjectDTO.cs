@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task.ENTITIES.Entities;
+using TaskManagement.ENTITIES.Entities;
 
-namespace Task.MODELS.CreateProjectDTO;
+namespace TaskManagement.MODELS.CreateProjectDTO;
 public class CreateProjectDTO
 {
     public string Name { get; set; }

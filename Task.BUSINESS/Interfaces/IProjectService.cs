@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task.MODELS.ProjectDTO;
-using Task.MODELS.UserDTO;
-using Task.MODELS.UpdateProjectDTO;
-using Task.MODELS.CreateProjectDTO;
-using Task.MODELS.ChangeProjectStatusDTO;
+using TaskManagement.MODELS.ProjectDTO;
+using TaskManagement.MODELS.UserDTO;
+using TaskManagement.MODELS.UpdateProjectDTO;
+using TaskManagement.MODELS.CreateProjectDTO;
 
 
-namespace Task.BLL.Interfaces;
+namespace TaskManagement.BLL.Interfaces;
 
 public interface IProjectService
 {
@@ -28,11 +27,12 @@ public interface IProjectService
     Task<List<UserDTO>> GetUsersAsync(int projectId);
 
     //CreateAsync(CreateProjectDto)
-    Task<CreateProjectDTO> CreateAsync(CreateProjectDTO createProjectDto);
-
+    Task<ProjectDTO> CreateAsync(CreateProjectDTO dto);
+    //onceden->Task<CreateProjectDTO> CreateAsync(CreateProjectDTO createProjectDto);
     //UpdateAsync(projectId, UpdateProjectDto)
-    Task<UpdateProjectDTO> UpdateAsync(int projectId, UpdateProjectDTO updateProjectDto);
-
+    Task<ProjectDTO> UpdateAsync(int projectId, UpdateProjectDTO dto);
+    //onceden->Task<UpdateProjectDTO> UpdateAsync(int projectId, UpdateProjectDTO
+    
     //AddUserAsync(projectId, userId)
     Task<UserDTO> AddUserAsync(int projectId, int userId);
 

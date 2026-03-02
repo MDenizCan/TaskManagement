@@ -3,11 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Task.INFRASTRUCTURE;
+using TaskManagement.INFRASTRUCTURE;
 
 #nullable disable
 
-namespace Task.INFRASTRUCTURE.Migrations
+namespace TaskManagement.INFRASTRUCTURE.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

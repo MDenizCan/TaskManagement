@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task.MODELS.TaskDTO;
+using TaskManagement.MODELS.TaskDTO;
 
-namespace Task.BLL.Interfaces;
+namespace TaskManagement.BLL.Interfaces;
 
 public interface ITaskService
 {
@@ -26,4 +26,7 @@ public interface ITaskService
 
     //DeleteAsync(taskId)
     Task<TaskDTO> DeleteAsync(int taskId);
+
+    //GetAllAsync()
+    Task<List<TaskDTO>> GetAllAsync();
 }

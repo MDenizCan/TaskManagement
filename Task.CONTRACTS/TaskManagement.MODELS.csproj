@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Task.ENTITIES\Task.ENTITIES.csproj" />
+    <ProjectReference Include="..\Task.ENTITIES\TaskManagement.ENTITIES.csproj" />
   </ItemGroup>
 
 </Project>

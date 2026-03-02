@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task.MODELS.UserDTO;
+using TaskManagement.MODELS.UserDTO;
 
-namespace Task.BLL.Interfaces;
+namespace TaskManagement.BLL.Interfaces;
 
 public interface IUserService
 {

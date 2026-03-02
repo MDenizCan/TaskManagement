@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Task.INFRASTRUCTURE.Migrations
+namespace TaskManagement.INFRASTRUCTURE.Migrations
 {
     /// <inheritdoc />
     public partial class CleanerVersion : Migration
