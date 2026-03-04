@@ -17,7 +17,11 @@ public class MappingProfile:Profile
 {
     public MappingProfile()
     {
-        CreateMap<ProjectEntity, ProjectDTO>();
+        CreateMap<ProjectEntity, ProjectDTO>()
+            .ForMember(dest => dest.Tasks, opt => opt.MapFrom(src => src.Tasks))
+            .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.Users));
+        CreateMap<TaskEntity, ProjectTaskSummaryDTO>();
+        CreateMap<UserEntity, ProjectUserSummaryDTO>();
         CreateMap<CreateProjectDTO, ProjectEntity>();
         CreateMap<UpdateProjectDTO, ProjectEntity>();
 
@@ -25,7 +29,8 @@ public class MappingProfile:Profile
         CreateMap<CreateUserDTO, UserEntity>();
         CreateMap<UpdateUserDTO, UserEntity>();
 
-        CreateMap<TaskEntity, TaskDTO>();
+        CreateMap<TaskEntity, TaskDTO>()
+            .ForMember(dest => dest.UserIds, opt => opt.MapFrom(src => src.Users.Select(u => u.Id).ToList()));
         CreateMap<CreateTaskDTO, TaskEntity>();
         CreateMap<UpdateTaskDTO, TaskEntity>();
     }

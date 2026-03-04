@@ -15,6 +15,22 @@ public class ProjectRepository(AppDbContext context) : GenericRepository<Project
 {
     // Not: base class GenericRepository zaten _context tanimlıyor, yeniden tanımlamaya gerek yok.
 
+    public async Task<List<ProjectEntity>> GetAllWithUsersAsync()
+    {
+        return await _context.Projects
+            .Include(p => p.Users)
+            .Include(p => p.Tasks)
+            .ToListAsync();
+    }
+
+    public async Task<ProjectEntity?> GetByIdWithUsersAsync(int projectId)
+    {
+        return await _context.Projects
+            .Include(p => p.Users)
+            .Include(p => p.Tasks)
+            .FirstOrDefaultAsync(p => p.Id == projectId);
+    }
+
     public async Task<List<UserDTO>> GetUsersAsync(int projectId)
     {
         var project = await _context.Projects
@@ -34,6 +50,7 @@ public class ProjectRepository(AppDbContext context) : GenericRepository<Project
     {
         var project = await _context.Projects
             .Include(p => p.Users)
+            .Include(p => p.Tasks)
             .FirstOrDefaultAsync(p => p.Id == projectId);
 
         if (project == null)
@@ -54,7 +71,9 @@ public class ProjectRepository(AppDbContext context) : GenericRepository<Project
         {
             Name = project.Name,
             Status = project.Status,
-            Description = project.Description
+            Description = project.Description,
+            Tasks = project.Tasks.Select(t => new ProjectTaskSummaryDTO { Id = t.Id, Name = t.Name }).ToList(),
+            Users = project.Users.Select(u => new ProjectUserSummaryDTO { Id = u.Id, Name = u.Name, Surname = u.Surname }).ToList()
         };
     }
 
@@ -62,6 +81,7 @@ public class ProjectRepository(AppDbContext context) : GenericRepository<Project
     {
         var project = await _context.Projects
             .Include(p => p.Users)
+            .Include(p => p.Tasks)
             .FirstOrDefaultAsync(p => p.Id == projectId);
 
         if (project == null)
@@ -82,7 +102,9 @@ public class ProjectRepository(AppDbContext context) : GenericRepository<Project
         {
             Name = project.Name,
             Status = project.Status,
-            Description = project.Description
+            Description = project.Description,
+            Tasks = project.Tasks.Select(t => new ProjectTaskSummaryDTO { Id = t.Id, Name = t.Name }).ToList(),
+            Users = project.Users.Select(u => new ProjectUserSummaryDTO { Id = u.Id, Name = u.Name, Surname = u.Surname }).ToList()
         };
     }
 }

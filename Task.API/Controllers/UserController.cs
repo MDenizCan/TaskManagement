@@ -24,7 +24,7 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name = "GetUserById")]
     public async Task<IActionResult> GetByIdAsync(int id)
     {
         var user = await _userService.GetByIdAsync(id);
@@ -39,9 +39,12 @@ public class UserController : ControllerBase
     public async Task<IActionResult> CreateAsync([FromBody] CreateUserDTO dto)
     {
         var createdUser = await _userService.CreateAsync(dto);
-        return CreatedAtAction(nameof(GetByIdAsync), new { id = createdUser.Id }, createdUser);
+
+        return CreatedAtRoute("GetUserById",
+            new { id = createdUser.Id },
+            createdUser);
     }
-    [HttpPut]
+    [HttpPut("{id}")]
     public async Task<IActionResult> UpdateAsync(int id, [FromBody] UpdateUserDTO dto)
     {
         var updatedUser = await _userService.UpdateAsync(id, dto);

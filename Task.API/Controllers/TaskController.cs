@@ -27,7 +27,7 @@ public class TaskController : ControllerBase
         var tasks = await _taskService.GetAllAsync();
         return Ok(tasks);
     }
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name="GetTaskById")]
     public async Task<IActionResult> GetByIdAsync(int id)
     {
         var task = await _taskService.GetByIdAsync(id);
@@ -36,25 +36,27 @@ public class TaskController : ControllerBase
         return Ok(task);
     }
 
-    [HttpGet]
-    [Route("project/{projectId}")]
+    [HttpGet("project/{projectId}/tasks")]
     public async Task<IActionResult> GetByProjectAsync(int projectId)
     {
         var tasks = await _taskService.GetByProjectAsync(projectId);
         return Ok(tasks);
     }
 
-    [HttpPost]
-    [Route("project/{projectId}")]
+    [HttpPost("project/{projectId}/createTask")]
     public async Task<IActionResult> CreateAsync(int projectId, CreateTaskDTO dto)
     {
         var project = await _projectService.GetByIdAsync(projectId);
         if (project == null)
-            return NotFound($"Project with not found.");
+            return NotFound("Project not found.");
+
         try
         {
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = await _taskService.CreateAsync(projectId, dto) }, null);
+            var createdTask = await _taskService.CreateAsync(projectId, dto);
 
+            return CreatedAtRoute("GetTaskById",
+                new { id = createdTask.Id },
+                createdTask);
         }
         catch (Exception ex)
         {
@@ -62,8 +64,7 @@ public class TaskController : ControllerBase
         }
     }
 
-    [HttpPost]
-    [Route("{taskId}/assign/{userId}")]
+    [HttpPost("{taskId}/assign/{userId}")]
     public async Task<IActionResult> AssignUserAsync(int taskId, int userId)
     {
         try

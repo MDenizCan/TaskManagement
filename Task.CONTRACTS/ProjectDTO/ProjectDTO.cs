@@ -12,4 +12,6 @@ public class ProjectDTO
     public string Name { get; set; }
     public ProjectStatus Status { get; set; }
     public string Description { get; set; }
+    public List<ProjectTaskSummaryDTO> Tasks { get; set; } = new List<ProjectTaskSummaryDTO>();
+    public List<ProjectUserSummaryDTO> Users { get; set; } = new List<ProjectUserSummaryDTO>();
 }

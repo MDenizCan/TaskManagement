@@ -38,7 +38,7 @@ public class ProjectController : ControllerBase
             return NotFound(ex.Message);
         }
     }
-    [HttpGet("{id}")]
+    [HttpGet("{id}/users")]
     public async Task<IActionResult> GetUserAsync(int id)
     {
         try
@@ -65,7 +65,7 @@ public class ProjectController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
-    [HttpPost]
+    [HttpPost("{projectId}/users/{userId}")]
     public async Task<IActionResult> AddUserAsync(int projectId, int userId)
     {
         try
@@ -106,7 +106,7 @@ public class ProjectController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpDelete("{projectId}/users/{userId}")]
     public async Task<IActionResult> RemoveUserAsync(int projectId, int userId)
     {
         try

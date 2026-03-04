@@ -15,7 +15,7 @@ public enum TaskStatus
 }
 public class TaskEntity : BaseEntity
 {
-    public ICollection<UserEntity> Users { get; set; }
+    public ICollection<UserEntity> Users { get; set; } = new List<UserEntity>();
     public int ProjectId { get; set; }
     public ProjectEntity Project { get; set; }
 

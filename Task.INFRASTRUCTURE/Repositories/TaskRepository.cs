@@ -12,9 +12,24 @@ namespace TaskManagement.INFRASTRUCTURE.Repositories;
 
 public class TaskRepository(AppDbContext context) : GenericRepository<TaskEntity>(context), ITaskRepository
 {
+    public async Task<List<TaskEntity>> GetAllWithUsersAsync()
+    {
+        return await _context.Tasks
+            .Include(t => t.Users)
+            .ToListAsync();
+    }
+
+    public async Task<TaskEntity?> GetByIdWithUsersAsync(int taskId)
+    {
+        return await _context.Tasks
+            .Include(t => t.Users)
+            .FirstOrDefaultAsync(t => t.Id == taskId);
+    }
+
     public async Task<List<TaskDTO>> GetByProjectAsync(int projectId)
     {
         var tasks = await _context.Tasks
+            .Include(t => t.Users)
             .Where(t => t.ProjectId == projectId)
             .ToListAsync();
 
@@ -22,7 +37,8 @@ public class TaskRepository(AppDbContext context) : GenericRepository<TaskEntity
         {
             Name = t.Name,
             Description = t.Description,
-            Status = t.Status
+            Status = t.Status,
+            UserIds = t.Users.Select(u => u.Id).ToList()
         }).ToList();
     }
 
@@ -49,7 +65,8 @@ public class TaskRepository(AppDbContext context) : GenericRepository<TaskEntity
         {
             Name = task.Name,
             Description = task.Description,
-            Status = task.Status
+            Status = task.Status,
+            UserIds = task.Users.Select(u => u.Id).ToList()
         };
     }
 }

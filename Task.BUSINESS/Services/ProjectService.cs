@@ -44,7 +44,7 @@ public class ProjectService : IProjectService
     //
     public async Task<List<ProjectDTO>> GetAllAsync()
     {
-        var projects = await _genericProjectRepository.GetAllAsync();
+        var projects = await _projectRepository.GetAllWithUsersAsync();
         return projects.Select(p => _mapper.Map<ProjectDTO>(p)).ToList();
     }
 
@@ -53,7 +53,7 @@ public class ProjectService : IProjectService
     //repodan o projecti çek
     public async Task<ProjectDTO> GetByIdAsync(int projectId)
     {
-        var project = await _genericProjectRepository.GetByIdAsync(projectId);
+        var project = await _projectRepository.GetByIdWithUsersAsync(projectId);
         if (project == null)
         {
             throw new Exception("Project not found");

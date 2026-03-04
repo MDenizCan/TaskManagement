@@ -39,7 +39,7 @@ public class TaskService : ITaskService
     //repodan taskları çek
     public async Task<List<TaskDTO>> GetAllAsync()
     {
-        var tasks = await _genericTaskRepository.GetAllAsync();
+        var tasks = await _taskRepository.GetAllWithUsersAsync();
         return tasks.Select(t => _mapper.Map<TaskDTO>(t)).ToList();
     }
 
@@ -63,12 +63,12 @@ public class TaskService : ITaskService
     //repodan o taski çek
     public async Task<TaskDTO> GetByIdAsync(int taskId)
     {
-        var tasks = await _genericTaskRepository.GetByIdAsync(taskId);
-        if (tasks == null)
+        var task = await _taskRepository.GetByIdWithUsersAsync(taskId);
+        if (task == null)
         {
             throw new Exception("Task not found");
         }
-        return _mapper.Map<TaskDTO>(tasks);
+        return _mapper.Map<TaskDTO>(task);
     }
 
     //CreateTaskbyProjectId
@@ -114,7 +114,7 @@ public class TaskService : ITaskService
             throw new Exception("Project not found");
         }
         // User projede yoksa projeye ekle
-        if (!project.Users.Contains(user))
+        if (!project.Users.Any(u => u.Id == userId))
         {
             project.Users.Add(user);
         }
