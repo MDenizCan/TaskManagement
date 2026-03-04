@@ -16,16 +16,16 @@ public interface ITaskService
     Task<List<TaskDTO>> GetByProjectAsync(int projectId);
 
     //CreateAsync(projectId, CreateTaskDto)
-    Task<TaskDTO> CreateAsync(int projectId, CreateTaskDTO createTaskDto);
+    Task<TaskDTO> CreateAsync(int projectId, CreateTaskDTO dto);
 
     //UpdateAsync(taskId, UpdateTaskDto)
-    Task<TaskDTO> UpdateAsync(int taskId, UpdateTaskDTO updateTaskDto);
+    Task<TaskDTO> UpdateAsync(int taskId, UpdateTaskDTO dto);
 
     //AssignUserAsync(taskId, userId)
     Task<TaskDTO> AssignUserAsync(int taskId, int userId);
 
     //DeleteAsync(taskId)
-    Task<TaskDTO> DeleteAsync(int taskId);
+    Task DeleteAsync(int taskId);
 
     //GetAllAsync()
     Task<List<TaskDTO>> GetAllAsync();

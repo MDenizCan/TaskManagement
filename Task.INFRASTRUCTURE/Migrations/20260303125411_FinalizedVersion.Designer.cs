@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskManagement.INFRASTRUCTURE;
 
@@ -10,42 +11,14 @@ using TaskManagement.INFRASTRUCTURE;
 namespace TaskManagement.INFRASTRUCTURE.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260303125411_FinalizedVersion")]
+    partial class FinalizedVersion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.24");
-
-            modelBuilder.Entity("ProjectEntityUserEntity", b =>
-                {
-                    b.Property<int>("ProjectsId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ProjectsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("ProjectEntityUserEntity");
-                });
-
-            modelBuilder.Entity("TaskEntityUserEntity", b =>
-                {
-                    b.Property<int>("TasksId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("TasksId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("TaskEntityUserEntity");
-                });
 
             modelBuilder.Entity("TaskManagement.ENTITIES.Entities.ProjectEntity", b =>
                 {
@@ -89,15 +62,10 @@ namespace TaskManagement.INFRASTRUCTURE.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
 
                     b.ToTable("Tasks");
                 });
@@ -123,59 +91,30 @@ namespace TaskManagement.INFRASTRUCTURE.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("ProjectEntityId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProjectEntityId");
+
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ProjectEntityUserEntity", b =>
+            modelBuilder.Entity("TaskManagement.ENTITIES.Entities.UserEntity", b =>
                 {
                     b.HasOne("TaskManagement.ENTITIES.Entities.ProjectEntity", null)
-                        .WithMany()
-                        .HasForeignKey("ProjectsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TaskManagement.ENTITIES.Entities.UserEntity", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TaskEntityUserEntity", b =>
-                {
-                    b.HasOne("TaskManagement.ENTITIES.Entities.TaskEntity", null)
-                        .WithMany()
-                        .HasForeignKey("TasksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TaskManagement.ENTITIES.Entities.UserEntity", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TaskManagement.ENTITIES.Entities.TaskEntity", b =>
-                {
-                    b.HasOne("TaskManagement.ENTITIES.Entities.ProjectEntity", "Project")
-                        .WithMany("Tasks")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
+                        .WithMany("Users")
+                        .HasForeignKey("ProjectEntityId");
                 });
 
             modelBuilder.Entity("TaskManagement.ENTITIES.Entities.ProjectEntity", b =>
                 {
-                    b.Navigation("Tasks");
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

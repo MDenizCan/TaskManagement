@@ -1,7 +1,8 @@
-
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using TaskManagement.BLL.Interfaces;
+using TaskManagement.BLL.Mappings;
 using TaskManagement.BLL.Services;
 using TaskManagement.INFRASTRUCTURE;
 using TaskManagement.INFRASTRUCTURE.Repositories;
@@ -22,6 +23,10 @@ namespace TaskManagement.API
             builder.Services.AddScoped<ITaskService, TaskService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IProjectService, ProjectService>();
+            builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+            builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+
+            builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile).Assembly);
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

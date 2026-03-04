@@ -15,7 +15,8 @@ public enum ProjectStatus
 
 public class ProjectEntity : BaseEntity
 {
-    public IEnumerable<object> Users;
+    public ICollection<UserEntity> Users { get; set; }
+    public ICollection<TaskEntity> Tasks { get; set; }
 
     public string Name { get; set; }
     public ProjectStatus Status { get; set; }

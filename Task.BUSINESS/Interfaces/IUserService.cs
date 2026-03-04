@@ -23,5 +23,5 @@ public interface IUserService
     Task<UserDTO> UpdateAsync(int userId, UpdateUserDTO updateUserDto);
 
     //DeleteAsync(userId)
-    Task<UserDTO> DeleteAsync(int userId);
+    Task DeleteAsync(int userId);
 }

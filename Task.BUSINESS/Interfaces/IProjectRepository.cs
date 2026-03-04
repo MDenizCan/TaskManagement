@@ -11,7 +11,7 @@ namespace TaskManagement.BLL.Interfaces;
 public interface IProjectRepository
 {
 
-    Task<List<ProjectDTO>> GetUsersAsync(int projectId);
+    Task<List<UserDTO>> GetUsersAsync(int projectId);
 
     Task<ProjectDTO> AddUserAsync(int projectId,int userId);
 

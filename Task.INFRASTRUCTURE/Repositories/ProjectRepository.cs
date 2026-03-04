@@ -13,9 +13,24 @@ namespace TaskManagement.INFRASTRUCTURE.Repositories;
 
 public class ProjectRepository(AppDbContext context) : GenericRepository<ProjectEntity>(context), IProjectRepository
 {
-    protected readonly AppDbContext _context = context;
+    // Not: base class GenericRepository zaten _context tanimlıyor, yeniden tanımlamaya gerek yok.
 
-    public async Task<List<UserEntity>> GetUsersAsync(int projectId)
+    public async Task<List<UserDTO>> GetUsersAsync(int projectId)
+    {
+        var project = await _context.Projects
+            .Include(p => p.Users)
+            .FirstOrDefaultAsync(p => p.Id == projectId);
+        if (project == null)
+            throw new Exception("Project not found");
+        return project.Users.Select(u => new UserDTO
+        {
+            Name = u.Name,
+            Surname = u.Surname,
+            Email = u.Email
+        }).ToList();
+    }
+
+    public async Task<ProjectDTO> AddUserAsync(int projectId, int userId)
     {
         var project = await _context.Projects
             .Include(p => p.Users)
@@ -25,31 +40,6 @@ public class ProjectRepository(AppDbContext context) : GenericRepository<Project
         {
             throw new Exception("Project not found");
         }
-    }
-    public async Task<ProjectDTO> AddUserAsync(int projectId, int userId)
-    {
-        var project = _context.Projects.Find(projectId);
-        if (project == null)
-        {
-            throw new Exception("Project not found");
-        }
-        var user = await _context.Users.FindAsync(userId);  
-        if (user == null)
-        {
-            throw new Exception("User not found");
-        }
-    }
-
-    public async Task<ProjectDTO> RemoveUserAsync(int projectId, int userId)
-    {
-        var project = await _context.Projects.FindAsync(projectId);
-        if (project == null)
-        {
-            throw new Exception("Project not found");
-        }
-
-        // The following assumes that ProjectEntity has a navigation property like ICollection<UserEntity> Users.
-        // If it does not, you must add it to ProjectEntity and configure it in your DbContext.
 
         var user = await _context.Users.FindAsync(userId);
         if (user == null)
@@ -57,14 +47,42 @@ public class ProjectRepository(AppDbContext context) : GenericRepository<Project
             throw new Exception("User not found");
         }
 
-        // Uncomment and use the following line ONLY if ProjectEntity has a Users collection:
-        // project.Users.Remove(user);
+        project.Users.Add(user);
+        await _context.SaveChangesAsync();
 
-        // await _context.SaveChangesAsync();
+        return new ProjectDTO
+        {
+            Name = project.Name,
+            Status = project.Status,
+            Description = project.Description
+        };
+    }
 
-        // Map project to ProjectDTO as needed. Placeholder below:
-        // return new ProjectDTO { ... };
+    public async Task<ProjectDTO> RemoveUserAsync(int projectId, int userId)
+    {
+        var project = await _context.Projects
+            .Include(p => p.Users)
+            .FirstOrDefaultAsync(p => p.Id == projectId);
 
-        throw new NotImplementedException("ProjectEntity does not have a Users collection. Add a navigation property ICollection<UserEntity> Users to ProjectEntity to enable this functionality.");
+        if (project == null)
+        {
+            throw new Exception("Project not found");
+        }
+
+        var user = project.Users.FirstOrDefault(u => u.Id == userId);
+        if (user == null)
+        {
+            throw new Exception("User not found in this project");
+        }
+
+        project.Users.Remove(user);
+        await _context.SaveChangesAsync();
+
+        return new ProjectDTO
+        {
+            Name = project.Name,
+            Status = project.Status,
+            Description = project.Description
+        };
     }
 }

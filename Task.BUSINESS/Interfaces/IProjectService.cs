@@ -34,11 +34,11 @@ public interface IProjectService
     //onceden->Task<UpdateProjectDTO> UpdateAsync(int projectId, UpdateProjectDTO
     
     //AddUserAsync(projectId, userId)
-    Task<UserDTO> AddUserAsync(int projectId, int userId);
+    Task<ProjectDTO> AddUserAsync(int projectId, int userId);
 
     //RemoveUserAsync(projectId, userId)
-    Task<UserDTO> RemoveUserAsync(int projectId, int userId);
+    Task<ProjectDTO> RemoveUserAsync(int projectId, int userId);
 
     //DeleteAsync(projectId)
-    Task<ProjectDTO> DeleteAsync(int projectId);
+    Task DeleteAsync(int projectId);
 }

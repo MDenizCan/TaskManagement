@@ -8,7 +8,6 @@ using TaskManagement.BLL.Interfaces;
 using TaskManagement.ENTITIES.Common;
 
 namespace TaskManagement.INFRASTRUCTURE.Repositories;
-
 //GenericRepository<T>= bu class generic
 //GenericRepository<TaskEntity>
 //GenericRepository<User>
@@ -26,15 +25,15 @@ public class GenericRepository<T> : IGenericRepository<T> where T: BaseEntity
         _context = context;
     }
     //Task<List<T>> GetAllAsync();
-    public Task<List<T>> GetAllAsync()
+    public async Task<List<T>> GetAllAsync()
     {//_context.Set<T>()=DbContext içinde T tipine karşılık gelen DbSet’i bul.
-        return _context.Set<T>().ToListAsync();
+        return await _context.Set<T>().ToListAsync();
     }
     //Task<T> GetByIdAsync(int id);
-    public Task<T> GetByIdAsync(int id)
+    public async Task<T> GetByIdAsync(int id)
     {//FindAsync normalde ValueTask<T> döner.
      //Ama sen interface’de Task<T> yazdığın için dönüştürüyorsun.
-        return _context.Set<T>().FindAsync(id).AsTask();
+        return await _context.Set<T>().FindAsync(id).AsTask();
     }
     //Task<T> CreateAsync(T entity);
     public async Task<T> CreateAsync(T entity)
@@ -45,7 +44,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T: BaseEntity
     //void Update(T entity);
     public void Update(T entity)
     {
-        return _context.Set<T>().Update(entity);
+        _context.Set<T>().Update(entity);
     }
     //void Remove(T entity);
     public void Remove(T entity)
@@ -53,7 +52,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T: BaseEntity
         _context.Set<T>().Remove(entity);
     }
     //Task SaveChangesAsync();
-    public Task SaveChangesAsync()
+    public  Task SaveChangesAsync()
     {
         return _context.SaveChangesAsync();
     }
