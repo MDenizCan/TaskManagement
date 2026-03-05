@@ -66,7 +66,7 @@ public class ProjectService : IProjectService
     //repodan o projecte atanmış userları çek
     public async Task<List<UserDTO>> GetUsersAsync(int projectId)
     {
-        var project = await _genericProjectRepository.GetByIdAsync(projectId);
+        var project = await _projectRepository.GetByIdWithUsersAsync(projectId);
         if (project == null)
         {
             throw new Exception("Project not found");
@@ -90,7 +90,7 @@ public class ProjectService : IProjectService
     //repoya yonlendirme
     public async Task<ProjectDTO> AddUserAsync(int projectId, int userId)
     {
-        var project = await _genericProjectRepository.GetByIdAsync(projectId);
+        var project = await _projectRepository.GetByIdWithUsersAsync(projectId);
         if (project == null)
         {
             throw new Exception("Project not found");
@@ -104,7 +104,6 @@ public class ProjectService : IProjectService
         {
             throw new Exception("User already assigned to project");
         }
-        project.Users.Add(user);
         return _mapper.Map<ProjectDTO>(await _projectRepository.AddUserAsync(projectId, userId));
     }
 
@@ -146,7 +145,7 @@ public class ProjectService : IProjectService
     //repoya yonlendirme
     public async Task<ProjectDTO> RemoveUserAsync(int projectId, int userId)
     {
-        var project = await _genericProjectRepository.GetByIdAsync(projectId);
+        var project = await _projectRepository.GetByIdWithUsersAsync(projectId);
         if (project == null)
         {
             throw new Exception("Project not found");
@@ -160,7 +159,6 @@ public class ProjectService : IProjectService
         {
             throw new Exception("User not assigned to project");
         }
-        project.Users.Remove(user);
         return _mapper.Map<ProjectDTO>(await _projectRepository.RemoveUserAsync(projectId, userId));
 
     }

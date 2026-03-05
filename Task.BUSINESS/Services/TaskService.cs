@@ -14,7 +14,7 @@ namespace TaskManagement.BLL.Services;
 public class TaskService : ITaskService
 {
     private readonly IGenericRepository<TaskEntity> _genericTaskRepository;
-    private readonly IGenericRepository<ProjectEntity> _genericProjectRepository;
+    private readonly IProjectRepository _projectRepository;
     private readonly IMapper _mapper;
     private readonly ITaskRepository _taskRepository;
     private readonly IGenericRepository<UserEntity> _genericUserRepository;
@@ -22,7 +22,7 @@ public class TaskService : ITaskService
 
     public TaskService
         (IGenericRepository<TaskEntity> GenericTaskRepository,
-        IGenericRepository<ProjectEntity> genericProjectRepository,
+        IProjectRepository projectRepository,
         IMapper mapper,
         ITaskRepository taskRepository,
         IGenericRepository<UserEntity> genericUserRepository
@@ -31,7 +31,7 @@ public class TaskService : ITaskService
         _genericTaskRepository = GenericTaskRepository;
         _mapper = mapper;
         _taskRepository = taskRepository;
-        _genericProjectRepository = genericProjectRepository;
+        _projectRepository = projectRepository;
         _genericUserRepository = genericUserRepository;
     }
 
@@ -48,7 +48,7 @@ public class TaskService : ITaskService
     //repodan o projectin tasklarını çek
     public async Task<List<TaskDTO>> GetByProjectAsync(int projectId)
     {
-        var project = await _genericProjectRepository.GetByIdAsync(projectId);
+        var project = await _projectRepository.GetByIdWithUsersAsync(projectId);
         if (project == null)
         {
             throw new Exception("Project not found");
@@ -76,7 +76,7 @@ public class TaskService : ITaskService
     //repoya yonlendirme
     public async Task<TaskDTO> CreateAsync(int projectId, CreateTaskDTO dto)
     {
-        var project = await _genericProjectRepository.GetByIdAsync(projectId);
+        var project = await _projectRepository.GetByIdWithUsersAsync(projectId);
         if (project == null)
         {
             throw new Exception("Project not found");
@@ -108,7 +108,7 @@ public class TaskService : ITaskService
             throw new Exception("User not found");
         }
         // Task'ın ait olduğu projeyi bul
-        var project = await _genericProjectRepository.GetByIdAsync(task.ProjectId);
+        var project = await _projectRepository.GetByIdWithUsersAsync(task.ProjectId);
         if (project == null)
         {
             throw new Exception("Project not found");

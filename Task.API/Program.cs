@@ -44,6 +44,8 @@ namespace TaskManagement.API
 
             app.UseHttpsRedirection();
 
+            app.UseMiddleware<TaskManagement.API.Middleware.ExceptionMiddleware>();
+
             app.UseAuthorization();
 
 
