@@ -14,7 +14,9 @@ namespace TaskManagement.INFRASTRUCTURE.Repositories;
 //GenericRepository<Project>
 // hepsi ayni kodu kullanir
 public class GenericRepository<T> : IGenericRepository<T> where T: BaseEntity
-{//where T : BaseEntity= T mutlaka BaseEntity'den türemiş bir sınıf olmak zorunda
+{//where T : BaseEntity olmadan GenericRepository<string> ya da GenericRepository<int> gibi saçma şeyler yapılabilirdi. Kısıtlama sayesinde sadece 
+//BaseEntity'den türeyen sınıflar kullanılabilir UserEntity, ProjectEntity, TaskEntity
+
     protected readonly AppDbContext _context;
     //EF Core'un DbContext sinifini temsil eder.
     //Veritabanı işlemlerini gerçekleştirmek için kullanılır.

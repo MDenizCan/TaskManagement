@@ -14,8 +14,10 @@ public class AppDbContext : DbContext
     public DbSet<ProjectEntity> Projects { get; set; }
     public DbSet<TaskEntity> Tasks { get; set; }
 
+    //DbContext sınıfında bu metod zaten var. Sen onu ezip kendi kodunu yazıyorsun.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //Üst sınıfın orijinal kodunu da çalıştır, sonra seninkini ekle.
         base.OnModelCreating(modelBuilder);
 
         // Project <-> User (Many-to-Many)

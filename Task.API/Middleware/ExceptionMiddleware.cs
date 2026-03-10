@@ -17,7 +17,7 @@ public class ExceptionMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         try
-        {
+        {//isteği pipeline'daki bir sonraki adıma (Controller'a) ilet demek.
             await _next(context);
         }
         catch (Exception ex)

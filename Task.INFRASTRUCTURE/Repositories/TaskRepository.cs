@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TaskManagement.BLL.Interfaces;
 using TaskManagement.ENTITIES.Entities;
-using TaskManagement.MODELS.TaskDTO;
 
 namespace TaskManagement.INFRASTRUCTURE.Repositories;
 
@@ -26,23 +25,15 @@ public class TaskRepository(AppDbContext context) : GenericRepository<TaskEntity
             .FirstOrDefaultAsync(t => t.Id == taskId);
     }
 
-    public async Task<List<TaskDTO>> GetByProjectAsync(int projectId)
+    public async Task<List<TaskEntity>> GetByProjectAsync(int projectId)
     {
-        var tasks = await _context.Tasks
+        return await _context.Tasks
             .Include(t => t.Users)
             .Where(t => t.ProjectId == projectId)
             .ToListAsync();
-
-        return tasks.Select(t => new TaskDTO
-        {
-            Name = t.Name,
-            Description = t.Description,
-            Status = t.Status,
-            UserIds = t.Users.Select(u => u.Id).ToList()
-        }).ToList();
     }
 
-    public async Task<TaskDTO> AssignUserAsync(int taskId, int userId)
+    public async Task<TaskEntity> AssignUserAsync(int taskId, int userId)
     {
         var task = await _context.Tasks
             .Include(t => t.Users)
@@ -61,12 +52,6 @@ public class TaskRepository(AppDbContext context) : GenericRepository<TaskEntity
         task.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return new TaskDTO
-        {
-            Name = task.Name,
-            Description = task.Description,
-            Status = task.Status,
-            UserIds = task.Users.Select(u => u.Id).ToList()
-        };
+        return task;
     }
 }

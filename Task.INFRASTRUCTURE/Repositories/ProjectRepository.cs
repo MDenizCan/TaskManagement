@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TaskManagement.BLL.Interfaces;
 using TaskManagement.ENTITIES.Entities;
-using TaskManagement.MODELS.ProjectDTO;
 using TaskManagement.MODELS.UserDTO;
 
 namespace TaskManagement.INFRASTRUCTURE.Repositories;
@@ -46,7 +45,7 @@ public class ProjectRepository(AppDbContext context) : GenericRepository<Project
         }).ToList();
     }
 
-    public async Task<ProjectDTO> AddUserAsync(int projectId, int userId)
+    public async Task<ProjectEntity> AddUserAsync(int projectId, int userId)
     {
         var project = await _context.Projects
             .Include(p => p.Users)
@@ -67,17 +66,10 @@ public class ProjectRepository(AppDbContext context) : GenericRepository<Project
         project.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return new ProjectDTO
-        {
-            Name = project.Name,
-            Status = project.Status,
-            Description = project.Description,
-            Tasks = project.Tasks.Select(t => new ProjectTaskSummaryDTO { Id = t.Id, Name = t.Name }).ToList(),
-            Users = project.Users.Select(u => new ProjectUserSummaryDTO { Id = u.Id, Name = u.Name, Surname = u.Surname }).ToList()
-        };
+        return project;
     }
 
-    public async Task<ProjectDTO> RemoveUserAsync(int projectId, int userId)
+    public async Task<ProjectEntity> RemoveUserAsync(int projectId, int userId)
     {
         var project = await _context.Projects
             .Include(p => p.Users)
@@ -98,13 +90,6 @@ public class ProjectRepository(AppDbContext context) : GenericRepository<Project
         project.Users.Remove(user);
         await _context.SaveChangesAsync();
 
-        return new ProjectDTO
-        {
-            Name = project.Name,
-            Status = project.Status,
-            Description = project.Description,
-            Tasks = project.Tasks.Select(t => new ProjectTaskSummaryDTO { Id = t.Id, Name = t.Name }).ToList(),
-            Users = project.Users.Select(u => new ProjectUserSummaryDTO { Id = u.Id, Name = u.Name, Surname = u.Surname }).ToList()
-        };
+        return project;
     }
 }

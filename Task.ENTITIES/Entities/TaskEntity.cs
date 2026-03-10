@@ -15,9 +15,11 @@ public enum TaskStatus
 }
 public class TaskEntity : BaseEntity
 {
+    //Bir görevin birden fazla kullanıcısı olabilir.
     public ICollection<UserEntity> Users { get; set; } = new List<UserEntity>();
     public int ProjectId { get; set; }
-    public ProjectEntity Project { get; set; }
+    public ProjectEntity Project { get; set; } 
+    //
 
     public string Name { get; set; }
     public string Description { get; set; }

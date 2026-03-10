@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; //ICollection
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +15,9 @@ public enum ProjectStatus
 
 public class ProjectEntity : BaseEntity
 {
-    public ICollection<UserEntity> Users { get; set; } = new List<UserEntity>();
-    public ICollection<TaskEntity> Tasks { get; set; } = new List<TaskEntity>();
+    //Entity'lerinde ICollection şunu yapar: "Bu nesne birden fazla başka nesneye bağlanabilir"
+    public ICollection<UserEntity> Users { get; set; } = new List<UserEntity>(); //Bir projenin birden fazla kullanıcısı olabilir.
+    public ICollection<TaskEntity> Tasks { get; set; } = new List<TaskEntity>(); //Bir projenin birden fazla görevi olabilir.
 
     public string Name { get; set; }
     public ProjectStatus Status { get; set; }

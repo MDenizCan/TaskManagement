@@ -53,8 +53,9 @@ public class TaskService : ITaskService
         {
             throw new Exception("Project not found");
         }
-        // _taskRepository zaten TaskDTO dönüyor, tekrar map etmeye gerek yok
-        return await _taskRepository.GetByProjectAsync(projectId);
+        // _taskRepository TaskEntity dönüyor, mapper ile DTO'ya çevir
+        var tasks = await _taskRepository.GetByProjectAsync(projectId);
+        return tasks.Select(t => _mapper.Map<TaskDTO>(t)).ToList();
     }
 
 
