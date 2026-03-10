@@ -16,7 +16,6 @@ namespace TaskManagement.BLL.Services;
 
 public class ProjectService : IProjectService
 {
-    private readonly IGenericRepository<TaskEntity> _genericTaskRepository;
     private readonly IGenericRepository<ProjectEntity> _genericProjectRepository;
     private readonly IMapper _mapper;
     private readonly IProjectRepository _projectRepository;
@@ -24,14 +23,12 @@ public class ProjectService : IProjectService
 
 
     public ProjectService
-        (IGenericRepository<TaskEntity> GenericTaskRepository,
-        IGenericRepository<ProjectEntity> genericProjectRepository,
+        (IGenericRepository<ProjectEntity> genericProjectRepository,
         IMapper mapper,
         IProjectRepository projectRepository,
         IGenericRepository<UserEntity> genericUserRepository
         )
     {
-        _genericTaskRepository = GenericTaskRepository;
         _mapper = mapper;
         _projectRepository = projectRepository;
         _genericProjectRepository = genericProjectRepository;
