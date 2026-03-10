@@ -110,19 +110,18 @@ public class ProjectService : IProjectService
     //updateProject
     //o project var mi
     //repoya yonlendirme
-    public async Task<ProjectDTO> UpdateAsync(int projectId, UpdateProjectDTO dto)
-    {
-        var project = await _genericProjectRepository.GetByIdAsync(projectId);
-        if (project == null)
-        {
-            throw new Exception("Project not found");
-        }
-        _mapper.Map(dto, project);
-        _genericProjectRepository.Update(project);
-        await _genericProjectRepository.SaveChangesAsync();
-        return _mapper.Map<ProjectDTO>(project);
-
-    }
+public async Task<ProjectDTO> UpdateAsync(int projectId, UpdateProjectDTO dto)
+{
+    var project = await _genericProjectRepository.GetByIdAsync(projectId);
+    // project = veritabanından gelen mevcut proje nesnesi
+    _mapper.Map(dto, project);
+    // dto'nun property'lerini (Name, Status, Description) alıp
+    // mevcut project nesnesine yazar
+    // project nesnesi artık güncel
+    _genericProjectRepository.Update(project);
+    await _genericProjectRepository.SaveChangesAsync();
+    return _mapper.Map<ProjectDTO>(project);
+}
 
     //deleteProject
     //o project var mi

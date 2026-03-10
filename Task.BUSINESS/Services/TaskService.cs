@@ -85,7 +85,6 @@ public class TaskService : ITaskService
         var task = _mapper.Map<TaskEntity>(dto);
         task.ProjectId = projectId;
         var createdTask = await _genericTaskRepository.CreateAsync(task);
-        await _genericTaskRepository.SaveChangesAsync();
         return _mapper.Map<TaskDTO>(createdTask);
     }
 
