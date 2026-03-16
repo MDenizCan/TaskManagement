@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace TaskManagement.MODELS.UserDTO;
 
-public class CreateUserDTO
+public class UserRegisterDto
 {
-    public int Id { get; set; }
-    
     [Required]
     [Display(Name = "Name")]
     [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Name must contain only letters.")]
     public string Name { get; set; }
+
     [Required]
     [Display(Name = "Surname")]
     [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Name must contain only letters.")]
     public string Surname { get; set; }
+
     [Required]
     [Display(Name = "Email")]
     [EmailAddress(ErrorMessage = "Invalid email format.")]
