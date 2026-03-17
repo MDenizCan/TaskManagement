@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaskManagement.BLL.Interfaces;
 using TaskManagement.MODELS.UserDTO;
 
@@ -6,6 +7,7 @@ using TaskManagement.MODELS.UserDTO;
 
 namespace TaskManagement.API.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase
@@ -17,6 +19,7 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
@@ -54,6 +57,7 @@ public class UserController : ControllerBase
         }
         return Ok(updatedUser);
     }
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {

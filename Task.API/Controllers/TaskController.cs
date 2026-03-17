@@ -61,6 +61,7 @@ public class TaskController : ControllerBase
         return Ok(updatedTask);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {

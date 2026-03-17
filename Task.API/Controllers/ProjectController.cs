@@ -39,6 +39,7 @@ public class ProjectController : ControllerBase
         return Ok(users);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> Create(CreateProjectDTO dto)
     {
@@ -46,6 +47,7 @@ public class ProjectController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = createdProject.Id }, createdProject);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost("{projectId}/users/{userId}")]
     public async Task<IActionResult> AddUserAsync(int projectId, int userId)
     {
@@ -53,6 +55,7 @@ public class ProjectController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, UpdateProjectDTO dto)
     {
@@ -60,6 +63,7 @@ public class ProjectController : ControllerBase
         return Ok(updatedProject);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -67,6 +71,7 @@ public class ProjectController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{projectId}/users/{userId}")]
     public async Task<IActionResult> RemoveUserAsync(int projectId, int userId)
     {

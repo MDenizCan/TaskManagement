@@ -10,6 +10,7 @@ using TaskManagement.INFRASTRUCTURE.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 namespace TaskManagement.API
 {
@@ -38,7 +39,33 @@ namespace TaskManagement.API
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme.\r\n\r\nEnter ONLY the JWT token (without the 'Bearer ' prefix)."
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+            });
 
             builder.Services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
@@ -50,13 +77,26 @@ namespace TaskManagement.API
             })
             .AddJwtBearer(options =>
             {
+                // Helpful while debugging auth issues (especially via Swagger)
+                options.IncludeErrorDetails = builder.Environment.IsDevelopment();
+
+                var signingKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"])
+                )
+                {
+                    // If incoming tokens contain a "kid" header, having a stable KeyId prevents "signature key was not found" errors.
+                    KeyId = "taskmanagement"
+                };
+
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"])),
-                    ValidateIssuer = true,
+                    IssuerSigningKey = signingKey,
+                    // If "kid" is present/mismatched, still try all keys we have (we only have one).
+                    TryAllIssuerSigningKeys = true,
+                    ValidateIssuer = false,
                     ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
-                    ValidateAudience = true,
+                    ValidateAudience = false,
                     ValidAudience = builder.Configuration["JwtSettings:Audience"]
                 };
             });
